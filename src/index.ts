@@ -13,5 +13,10 @@ const rc = new RingCentral({
     password: process.env.RINGCENTRAL_PASSWORD!,
   });
   console.log(rc.token!.access_token);
+
+  const r = await rc.restapi().glip().chats().list();
+  const personalChat = r.records?.filter(c => c.type === 'Personal')[0];
+  console.log(personalChat);
+
   await rc.revoke();
 })();
